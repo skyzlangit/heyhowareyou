@@ -1,7 +1,7 @@
 import streamlit as st
 import random
 
-# Custom CSS for background and UI elements
+# Custom CSS for background and UI elements with improved readability
 st.markdown("""
     <style>
     body {
@@ -12,7 +12,7 @@ st.markdown("""
         color: #ffffff;
     }
     .stApp {
-        background: rgba(0, 0, 0, 0.6);
+        background: rgba(0, 0, 0, 0.8); /* Increased opacity for better readability */
         padding: 2rem;
         border-radius: 15px;
         box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.2), 0 6px 20px 0 rgba(255, 255, 255, 0.19);
@@ -38,6 +38,10 @@ st.markdown("""
         border: 1px solid #ffffff;
         background-color: rgba(255, 255, 255, 0.2);
         color: #ffffff;
+    }
+    .stMarkdown h1, .stMarkdown h2, .stMarkdown h3, .stMarkdown h4, .stMarkdown h5, .stMarkdown h6, .stMarkdown p {
+        color: #ffffff; /* Ensuring all text is white for better visibility */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Subtle shadow for text readability */
     }
     </style>
     """, unsafe_allow_html=True)
@@ -112,6 +116,7 @@ if user_name:
         show_response(is_good=True)
     elif bad_button:
         show_response(is_good=False)
+
 
 
 # Embed a YouTube video in the background (Rick Astley - Never Gonna Give You Up)
