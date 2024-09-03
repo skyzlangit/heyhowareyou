@@ -1,121 +1,118 @@
 import streamlit as st
 import random
 
-# Set the page configuration
-st.set_page_config(
-    page_title="Interactive Greeting",
-    page_icon="👋",
-    layout="centered",
-    initial_sidebar_state="collapsed",
-)
-
-# CSS styling for the app with fancy effects
-st.markdown(
-    """
+# Custom CSS for background and UI elements
+st.markdown("""
     <style>
+    body {
+        background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        color: #ffffff;
+    }
     .stApp {
-        background-color: #2ecc71;
-        color: white;
-        font-family: 'Arial', sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        flex-direction: column;
-        text-align: center;
+        background: rgba(0, 0, 0, 0.6);
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.2), 0 6px 20px 0 rgba(255, 255, 255, 0.19);
     }
-
-    .title {
-        font-size: 3rem;
-        margin-bottom: 20px;
-        animation: fadeIn 2s ease-in-out;
-    }
-
-    .input-box {
-        margin-bottom: 20px;
-        width: 60%;
-        font-size: 1.5rem;
-        padding: 10px;
+    .stButton>button {
         border-radius: 10px;
+        background-color: #f72585;
+        color: #ffffff;
         border: none;
-        outline: none;
+        padding: 10px 20px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        transition: background-color 0.3s ease;
     }
-
-    .input-box::placeholder {
-        color: #95a5a6;
+    .stButton>button:hover {
+        background-color: #7209b7;
     }
-
-    .response {
-        font-size: 2.5rem;
-        margin-top: 20px;
-        animation: blink 1.5s infinite alternate;
-        font-weight: bold;
-    }
-
-    .quote {
-        margin-top: 20px;
-        font-size: 1.8rem;
-        font-style: italic;
-        color: #f5f5f5;
-    }
-
-    img.motivational-image {
-        margin-top: 30px;
-        width: 80%;
+    .stTextInput>div>input {
         border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-
-    @keyframes blink {
-        from { opacity: 1; }
-        to { opacity: 0; }
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ffffff;
+        background-color: rgba(255, 255, 255, 0.2);
+        color: #ffffff;
     }
     </style>
-    """,
-    unsafe_allow_html=True
-)
+    """, unsafe_allow_html=True)
 
-# Display the greeting message
-st.markdown('<div class="title">Hello, how are you?</div>', unsafe_allow_html=True)
+# Dynamic Quotes
+good_quotes = [
+    "You're on the right track! Keep it up! 🌟",
+    "Today is your day, make it count! 🌞",
+    "Positivity is your superpower! 💪",
+]
 
-# User input box
-user_input = st.text_input("", placeholder="Type your response here...", key="input", label_visibility="collapsed")
+bad_quotes = [
+    "Tough times never last, but tough people do. 💪",
+    "Every day may not be good, but there is something good in every day. 🌈",
+    "Believe you can, and you're halfway there. 🌠"
+]
 
-if user_input:
-    st.markdown(f'<div class="response">{user_input.upper()}</div>', unsafe_allow_html=True)
-    st.markdown('<div class="response">HAVE A NICE DAY AHEAD!</div>', unsafe_allow_html=True)
-    
-    # List of inspirational quotes
-    inspirational_quotes = [
-        "Give yourself a pat on the back, you're doing great!",
-        "Remember to take a moment to celebrate your small wins.",
-        "You’ve come so far. Take a moment to appreciate yourself.",
-        "Believe in yourself—you are more capable than you think.",
-        "Every step forward, no matter how small, is a step closer to your goal."
-    ]
-    
-    # Randomly select a quote
-    selected_quote = random.choice(inspirational_quotes)
-    
-    # Display the quote
-    st.markdown(f'<div class="quote">"{selected_quote}"</div>', unsafe_allow_html=True)
-    
-    # Specific motivational image URLs
-    motivational_images = [
-        "https://plus.unsplash.com/premium_photo-1671599016130-7882dbff302f?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        "https://images.unsplash.com/photo-1496449903678-68ddcb189a24?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    ]
+# Jokes
+jokes = [
+    "Why don't scientists trust atoms? Because they make up everything! 🧪",
+    "Why did the math book look sad? Because it had too many problems. 📘",
+    "What do you call fake spaghetti? An impasta! 🍝",
+    "Parallel lines have so much in common. It’s a shame they’ll never meet. 📏",
+    "Why can't you trust an atom? Because they literally make up everything! 🧬",
+    "Did you hear about the mathematician who’s afraid of negative numbers? He’ll stop at nothing to avoid them. ➖",
+    "Why was the equal sign so humble? Because it knew it wasn’t less than or greater than anyone else. 🤝",
+    "Why did the physicist break up with the biologist? There was no chemistry. 🧑‍🔬",
+    "How do you organize a space party? You planet. 🌌",
+    "What do you get when you cross a snowman and a vampire? Frostbite. ☃️🧛",
+    "I told my computer I needed a break, and now it won’t stop sending me Kit-Kats. 🍫",
+    "Why don't programmers like nature? It has too many bugs. 🐛",
+    "I would tell you a joke about an elevator, but it's an uplifting experience that might let you down. 🚪"
+]
 
-    # Select a random image from the list
-    selected_image = random.choice(motivational_images)
+# Title of the app
+st.title("How Are You?")
 
-    # Display the motivational image with styling
-    st.markdown(f'<img src="{selected_image}" class="motivational-image" alt="Motivational Image">', unsafe_allow_html=True)
+# Get user name
+user_name = st.text_input("What's your name?")
+
+if user_name:
+    st.write(f"Hi {user_name}, let's see how you're feeling today!")
+
+    # Buttons for user input
+    good_button = st.button("I'm Good!")
+    bad_button = st.button("Not So Good")
+
+    # Function to show additional personalized uplifting content
+    def show_additional_uplift(is_good, user_name):
+        if is_good:
+            st.write(f"{user_name}, you're doing an amazing job, and your positivity is contagious! 😊")
+        else:
+            st.write(f"{user_name}, remember that you bring so much light to the people around you, even on tough days. 🌟")
+        st.write(f"{user_name}, take a moment to appreciate something small that made you smile today. 🌸")
+
+    # Function to show motivational messages, jokes, and emojis
+    def show_response(is_good):
+        if is_good:
+            message = random.choice(good_quotes)
+        else:
+            message = random.choice(bad_quotes)
+
+        st.subheader(message)
+        st.write("Here's a joke to brighten your day: 😄")
+        st.write(random.choice(jokes))
+
+        # Show additional personalized uplifting content
+        show_additional_uplift(is_good, user_name)
+
+    # Check which button was pressed
+    if good_button:
+        show_response(is_good=True)
+    elif bad_button:
+        show_response(is_good=False)
+
 
 # Embed a YouTube video in the background (Rick Astley - Never Gonna Give You Up)
 st.markdown(
